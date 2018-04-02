@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Green Quiz</string>
+    <string name="quiz_header">What\'s your shade of green?</string>
+    <string name="question_1">1- When you buy groceries, what type of bags should you use?</string>
+    <string name="q1_rb1">Plastic</string>
+    <string name="q1_rb2">Paper</string>
+    <string name="q1_rb3">Reusable shopping bags</string>
+    <string name="question_2">2- Do you take baths or showers?</string>
+    <string name="q2_input">Write Baths or Showers</string>
+    <string name="question_3"> 3- How long do they last?</string>
+    <string name="q3_rb1">1 - 5 min</string>
+    <string name="q3_rb2">6 - 10 min</string>
+    <string name="q3_rb3">11 - 15 min</string>
+    <string name="q3_rb4">16 - 20 min</string>
+    <string name="q3_rb5">20+ min</string>
+    <string name="question_4"> 4- Which of the following do you consider can have a positive impact on the environment?</string>
+    <string name="q4_cb1">Switching off the lights and unplugging your appliances when you leave your home</string>
+    <string name="q4_cb2">Leaving the heat or AC on when you leave your home</string>
+    <string name="q4_cb3">Closing the tap while you brush your teeth</string>
+    <string name="q4_cb4">Air dry your hands or use a reusable towel to dry them after washing them</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="question_5">5- Do you walk or use public transportation when possible?</string>
+    <string name="question_6">6- If you drink coffe or tea, do yo use a reusable cup?</string>
+    <string name="q6_rb1">No, I always buy it on a new cup</string>
+    <string name="q6_rb2">Yes, I have a reusable cup</string>
+    <string name="question_7">7- Which of these cases should you follow to drink bottled water?</string>
+    <string name="q7_cb1">Only plastic bottled water (My city water is not safe for drinking)</string>
+    <string name="q7_cb2">Only plastic bottled water (I do not know the quality of the water provided by the city and I don\'t care))</string>
+    <string name="q7_cb3">Only plastic bottled water (I know the water from my city is safe but I don\'t want to risk it)</string>
+    <string name="q7_cb4">Plastic bottles and my own bottle (The water in my city is safe to drink but it\'s easier to buy bottled water)</string>
+    <string name="q7_cb5">Only my reusable plastic/glass/aluminum water bottle (I fill it up from a water fountain or a filter)</string>
+    <string name="question_8">8- Do you use hair or body aerosol products?</string>
+    <string name="submit_button">Submit Answers</string>
+    <string name="reset_button">Start a new quiz</string>
+    <string name="start_button">Start</string>
+
+</resources>
