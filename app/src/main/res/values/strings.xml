@@ -6,7 +6,7 @@
     <string name="q1_rb2">Paper</string>
     <string name="q1_rb3">Reusable shopping bags</string>
     <string name="question_2">2- Do you take baths or showers?</string>
-    <string name="q2_input">Write Baths or Showers</string>
+    <string name="q2_input">Write the word \"Baths\" or \"Showers\"</string>
     <string name="question_3"> 3- How long do they last?</string>
     <string name="q3_rb1">1 - 5 min</string>
     <string name="q3_rb2">6 - 10 min</string>

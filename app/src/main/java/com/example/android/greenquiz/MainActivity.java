@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     int score = 0;
+    int emptyQuizValidation = 1;
     int badScoreCompare = 2;
     int mediumScoreCompareLow = 3;
     int mediumScoreCompareHigh = 7;
@@ -33,15 +35,24 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitQuiz(View view) {
         int finalScore = calculateScore();
+        int getEmptyQuiz = checkEmptyQuiz();
 
-        if (finalScore <= badScoreCompare) {
+        if (getEmptyQuiz == emptyQuizValidation) {
+            Toast.makeText(this, "Empty quiz, please answer the questions.", Toast.LENGTH_SHORT).show();
+        }
+        if ((finalScore <= badScoreCompare) && (finalScore >= emptyQuizValidation)) {
             Toast.makeText(this, "You are not one bit green, but you can start the change today.", Toast.LENGTH_SHORT).show();
+            finalScore = 0;
+            score = 0;
         }
         if ((finalScore >= mediumScoreCompareLow) && (finalScore <= mediumScoreCompareHigh)) {
             Toast.makeText(this, "You are sort of green, but there is room for improvement.", Toast.LENGTH_SHORT).show();
+            finalScore = 0;
+            score = 0;
         }
         if (finalScore == perfectScoreCompare) {
             Toast.makeText(this, "You are super green! Keep on changing the world!", Toast.LENGTH_SHORT).show();
+            score = 0;
         }
     }
 
@@ -66,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
      * @return int value of overall quiz correct answers
      */
     private int calculateScore() {
-        boolean valueQuestionOne = checkQuestion1();
+        boolean valueQuestionOne = checkQuestion1Three();
         if (valueQuestionOne) {
             score += 1;
         }
@@ -74,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         if (valueQuestionTwo.equals(answerCompareQuestionTwo)) {
             score += 1;
         }
-        boolean valueQuestionThree = checkQuestion3();
+        boolean valueQuestionThree = checkQuestion3One();
         if (valueQuestionThree) {
             score += 1;
         }
@@ -88,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
                 && (!valueQuestionFourCheckBoxTwo)) {
             score += 1;
         }
-        boolean valueQuestionFive = checkQuestion5();
+        boolean valueQuestionFive = checkQuestion5One();
         if (valueQuestionFive) {
             score += 1;
         }
-        boolean valueQuestionSix = checkQuestion6();
+        boolean valueQuestionSix = checkQuestion6Two();
         if (valueQuestionSix) {
             score += 1;
         }
@@ -108,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 && (!valueQuestionSevenCheckBoxFour)) {
             score += 1;
         }
-        boolean valueQuestionEight = checkQuestion8();
+        boolean valueQuestionEight = checkQuestion8Two();
         if (valueQuestionEight) {
             score += 1;
         }
@@ -117,13 +128,100 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Gets answer to question 1.
+     * Calculates the score.
+     *
+     * @return int value of overall quiz correct answers
+     */
+    private int checkEmptyQuiz() {
+        boolean valueQuestionOne1 = checkQuestion1One();
+        boolean valueQuestionOne2 = checkQuestion1Two();
+        boolean valueQuestionOne3 = checkQuestion1Three();
+
+        String valueQuestionTwo = checkQuestion2();
+
+        boolean valueQuestionThree1 = checkQuestion3One();
+        boolean valueQuestionThree2 = checkQuestion3Two();
+        boolean valueQuestionThree3 = checkQuestion3Three();
+        boolean valueQuestionThree4 = checkQuestion3Four();
+        boolean valueQuestionThree5 = checkQuestion3Five();
+
+        boolean valueQuestionFourCheckBoxOne = checkQuestion4One();
+        boolean valueQuestionFourCheckBoxTwo = checkQuestion4Two();
+        boolean valueQuestionFourCheckBoxThree = checkQuestion4Three();
+        boolean valueQuestionFourCheckBoxFour = checkQuestion4Four();
+
+
+        boolean valueQuestionFive1 = checkQuestion5One();
+        boolean valueQuestionFive2 = checkQuestion5Two();
+
+        boolean valueQuestionSix1 = checkQuestion6One();
+        boolean valueQuestionSix2 = checkQuestion6Two();
+
+        boolean valueQuestionSevenCheckBoxOne = checkQuestion7One();
+        boolean valueQuestionSevenCheckBoxTwo = checkQuestion7Two();
+        boolean valueQuestionSevenCheckBoxThree = checkQuestion7Three();
+        boolean valueQuestionSevenCheckBoxFour = checkQuestion7Four();
+        boolean valueQuestionSevenCheckBoxFive = checkQuestion7Five();
+
+        boolean valueQuestionEight1 = checkQuestion8One();
+        boolean valueQuestionEight2 = checkQuestion8Two();
+
+        if ((!valueQuestionOne1) && (!valueQuestionOne2) && (!valueQuestionOne3)
+                && (valueQuestionTwo.equals(""))
+                && (!valueQuestionThree1)
+                && (!valueQuestionThree2)
+                && (!valueQuestionThree3)
+                && (!valueQuestionThree4)
+                && (!valueQuestionThree5)
+                && (!valueQuestionFourCheckBoxOne)
+                && (!valueQuestionFourCheckBoxTwo)
+                && (!valueQuestionFourCheckBoxThree)
+                && (!valueQuestionFourCheckBoxFour)
+                && (!valueQuestionFive1)
+                && (!valueQuestionFive2)
+                && (!valueQuestionSix1)
+                && (!valueQuestionSix2)
+                && (!valueQuestionSevenCheckBoxOne)
+                && (!valueQuestionSevenCheckBoxTwo)
+                && (!valueQuestionSevenCheckBoxThree)
+                && (!valueQuestionSevenCheckBoxFour)
+                && (!valueQuestionSevenCheckBoxFive)
+                && (!valueQuestionEight1)
+                && (!valueQuestionEight2)) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Gets answer 1 to question 1.
+     *
+     * @return boolean value of incorrect answer 1 for question 1
+     */
+    private boolean checkQuestion1One() {
+        RadioButton getAnswer1One = findViewById(R.id.q1_answer_1_radio_button);
+        return getAnswer1One.isChecked();
+    }
+
+    /**
+     * Gets answer 2 to question 1.
+     *
+     * @return boolean value of incorrect correct answer 2 for question 1
+     */
+    private boolean checkQuestion1Two() {
+        RadioButton getAnswer1Two = findViewById(R.id.q1_answer_2_radio_button);
+        return getAnswer1Two.isChecked();
+    }
+
+    /**
+     * Gets answer 3 to question 1.
      *
      * @return boolean value of correct answer for question 1
      */
-    private boolean checkQuestion1() {
-        RadioButton getAnswer1 = findViewById(R.id.q1_answer_3_radio_button);
-        return getAnswer1.isChecked();
+    private boolean checkQuestion1Three() {
+        RadioButton getAnswer1Three = findViewById(R.id.q1_answer_3_radio_button);
+        return getAnswer1Three.isChecked();
     }
 
     /**
@@ -141,9 +239,49 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return boolean value of correct answer for question 3
      */
-    private boolean checkQuestion3() {
-        RadioButton getAnswer3 = findViewById(R.id.q3_answer_1_radio_button);
-        return getAnswer3.isChecked();
+    private boolean checkQuestion3One() {
+        RadioButton getAnswer3One = findViewById(R.id.q3_answer_1_radio_button);
+        return getAnswer3One.isChecked();
+    }
+
+    /**
+     * Gets answer to question 3.
+     *
+     * @return boolean value of correct answer for question 3
+     */
+    private boolean checkQuestion3Two() {
+        RadioButton getAnswer3Two = findViewById(R.id.q3_answer_2_radio_button);
+        return getAnswer3Two.isChecked();
+    }
+
+    /**
+     * Gets answer to question 3.
+     *
+     * @return boolean value of correct answer for question 3
+     */
+    private boolean checkQuestion3Three() {
+        RadioButton getAnswer3Three = findViewById(R.id.q3_answer_3_radio_button);
+        return getAnswer3Three.isChecked();
+    }
+
+    /**
+     * Gets answer to question 3.
+     *
+     * @return boolean value of correct answer for question 3
+     */
+    private boolean checkQuestion3Four() {
+        RadioButton getAnswer3Four = findViewById(R.id.q3_answer_4_radio_button);
+        return getAnswer3Four.isChecked();
+    }
+
+    /**
+     * Gets answer to question 3.
+     *
+     * @return boolean value of correct answer for question 3
+     */
+    private boolean checkQuestion3Five() {
+        RadioButton getAnswer3Five = findViewById(R.id.q3_answer_5_radio_button);
+        return getAnswer3Five.isChecked();
     }
 
     /**
@@ -191,9 +329,19 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return boolean value of correct answer for question 5
      */
-    private boolean checkQuestion5() {
-        RadioButton getAnswer5 = findViewById(R.id.q5_answer_1_radio_button);
-        return getAnswer5.isChecked();
+    private boolean checkQuestion5One() {
+        RadioButton getAnswer5One = findViewById(R.id.q5_answer_1_radio_button);
+        return getAnswer5One.isChecked();
+    }
+
+    /**
+     * Gets answer to question 5.
+     *
+     * @return boolean value of incorrect answer for question 5
+     */
+    private boolean checkQuestion5Two() {
+        RadioButton getAnswer5Two = findViewById(R.id.q5_answer_2_radio_button);
+        return getAnswer5Two.isChecked();
     }
 
     /**
@@ -201,9 +349,19 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return boolean value of correct answer for question 6
      */
-    private boolean checkQuestion6() {
-        RadioButton getAnswer6 = findViewById(R.id.q6_answer_2_radio_button);
-        return getAnswer6.isChecked();
+    private boolean checkQuestion6One() {
+        RadioButton getAnswer6One = findViewById(R.id.q6_answer_1_radio_button);
+        return getAnswer6One.isChecked();
+    }
+
+    /**
+     * Gets answer to question 6.
+     *
+     * @return boolean value of correct answer for question 6
+     */
+    private boolean checkQuestion6Two() {
+        RadioButton getAnswer6Two = findViewById(R.id.q6_answer_2_radio_button);
+        return getAnswer6Two.isChecked();
     }
 
     /**
@@ -259,10 +417,20 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Gets answer to question 8.
      *
+     * @return boolean value of incorrect answer for question 8
+     */
+    private boolean checkQuestion8One() {
+        RadioButton getAnswer8One = findViewById(R.id.q8_answer_1_radio_button);
+        return getAnswer8One.isChecked();
+    }
+
+    /**
+     * Gets answer to question 8.
+     *
      * @return boolean value of correct answer for question 8
      */
-    private boolean checkQuestion8() {
-        RadioButton getAnswer8 = findViewById(R.id.q8_answer_2_radio_button);
-        return getAnswer8.isChecked();
+    private boolean checkQuestion8Two() {
+        RadioButton getAnswer8Two = findViewById(R.id.q8_answer_2_radio_button);
+        return getAnswer8Two.isChecked();
     }
 }
